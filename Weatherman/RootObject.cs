@@ -20,4 +20,6 @@ namespace Weatherman
         public string name { get; set; }
         public int cod { get; set; }
     }
+
+
 }
