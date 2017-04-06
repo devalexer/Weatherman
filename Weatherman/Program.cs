@@ -15,7 +15,7 @@ namespace Weatherman
         static string RequestUserName()
         {
             Console.WriteLine("Please enter your name: ");
-            string userName = Console.ReadLine();
+            string userName = Console.ReadLine().ToUpper();
 
             return userName;
         }
@@ -30,7 +30,7 @@ namespace Weatherman
 
         static RootObject GetWeather()
         {
-            var url = $"http://api.openweathermap.org/data/2.5/weather?zip={RequestUserZip()},us&units=metric&appid=bcf7aaa93424ebce8079e123df0cf3b9";
+            var url = $"http://api.openweathermap.org/data/2.5/weather?zip={RequestUserZip()},us&units=imperial&appid=bcf7aaa93424ebce8079e123df0cf3b9";
             var request = WebRequest.Create(url);
             var response = request.GetResponse();
             var rawResponse = String.Empty;
@@ -44,6 +44,8 @@ namespace Weatherman
             var forecast = JsonConvert.DeserializeObject<RootObject>(rawResponse);
 
             Console.WriteLine();
+            Console.WriteLine($"{forecast.main.temp}*F degrees");
+            Console.WriteLine($"With {forecast.weather.First().description} skies");
             return forecast;
         }
 
@@ -67,7 +69,6 @@ namespace Weatherman
                 cmd.ExecuteNonQuery();
                 connection.Close();
             }
-            
         }
 
         static public List<PastWeatherForecasts> GetCurrentTempAndCond(SqlConnection connection)
