@@ -93,7 +93,7 @@ namespace Weatherman
             var name = RequestUserName();
             var weather = GetWeather();
             AddForecast(weather, name);
-
+            Console.ReadLine();
 
 
 
